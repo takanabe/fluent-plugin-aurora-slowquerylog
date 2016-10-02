@@ -9,7 +9,7 @@ module Fluent
   class AuroraSlowqueryLog < Input
     # First, register the plugin. NAME is the name of this plugin
     # and identifies the plugin in the configuration file.
-    Fluent::Plugin.register_input('NAME', self)
+    Fluent::Plugin.register_input('aurora_slowquerylog', self)
 
     # config_param defines a parameter. You can refer a parameter via @port instance variable
     # :default means this parameter is optional
