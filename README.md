@@ -1,4 +1,4 @@
-# AWS RDS Aurora input plugin for [Fluentd](http://fluentd.org)
+# [Fluentd](http://fluentd.org) input plugin for AWS RDS Aurora
 
 ## Overview
 This fluent input plugin collects RDS Aurora slowquery log with ParameterGroup option `log_output=FILE`.
@@ -11,7 +11,7 @@ However if you use RDS Aurora with the option, there are two following problems:
 ### 1. mysql.slow_log table is operated with Engine=CSV
 
 mysql.slow_log table is operated with Engine=CSV and we cannot add index to the table.
-So if tons of slow queries are registered to mysql.slow_log, your `SELECT * from mysql.slow_log` queries also become slow.
+So if tons of slow queries are registered to mysql.slow_log, your `SELECT * FROM mysql.slow_log WHERE condition` queries also become slow.
 
 ### 2. No way to rotate Aurora slowlog table
 
