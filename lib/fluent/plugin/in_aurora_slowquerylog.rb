@@ -86,17 +86,15 @@ module Fluent
         state = load_state
         if slowlog_rotated?(state)
           if state["additional_data_pending"]
-            log_file_name = "#{@log_file_name}.#{Time.now.utc.strftime("%Y-%m-%d.%H")}"
-            fetch_and_emit_log(log_file_name, state["marker"],true)
+            fetch_and_emit_log(@previous_slowlog, state["marker"],true)
           else
-            log_file_name = "#{@log_file_name}.#{Time.now.utc.strftime("%Y-%m-%d.%H")}"
-            fetch_and_emit_log(@log_file_name, state["marker"],false)
+            fetch_and_emit_log(@previous_slowlog, state["marker"],false)
           end
         else
-          fetch_and_emit_log(@log_file_name, state["marker"],true)
+          fetch_and_emit_log(@current_slowlog, state["marker"],true)
         end
       else
-        fetch_and_emit_log(@log_file_name, false, true)
+        fetch_and_emit_log(@current_slowlog, false, true)
       end
     end
 
@@ -113,7 +111,7 @@ module Fluent
         else
           fetched_file = @rds_client.download_db_log_file_portion(
             db_instance_identifier: @db_instance_identifier,
-            log_file_name: "slowquery/mysql-slowquery.log")
+            log_file_name: log_file_name)
           save_state(fetched_file)
           records = parse_fetched_file(fetched_file)
           emit_slowlogs(records)
