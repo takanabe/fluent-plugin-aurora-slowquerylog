@@ -9,12 +9,11 @@ Gem::Specification.new do |spec|
   spec.email         = ["takanabe.w@gmail.com"]
 
   spec.summary       = "A fluentd plugin that collects AWS Aurora slow query logs with `log_output=FILE`"
-  spec.description   = "A fluentd plugin that collects AWS Aurora slow query logs with `log_output=FILE`"
+  spec.description   = spec.summary
   spec.homepage      = "https://github.com/takanabe/fluent-plugin-aurora-slowquerylog"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "fluentd"
